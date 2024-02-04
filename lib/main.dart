@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_project/api/api.dart';
 import 'package:weather_project/api/models/weather_api_response.dart';
-
 import 'home.dart';
 
 

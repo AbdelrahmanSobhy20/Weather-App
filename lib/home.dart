@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: Container(
-                            height: 450,
+                            height: 460,
                             width: MediaQuery.of(context).size.width,
                             child: Card(
                               elevation: 10,
@@ -97,11 +97,10 @@ class _HomeState extends State<Home> {
                                   ),
                                   const Divider(height: 60),
                                   Text(
-                                    snapshot.data!.list[0].weather[0]
-                                        .description,
+                                    snapshot
+                                        .data!.list[0].weather[0].description,
                                     style: const TextStyle(
-                                        fontSize: 30,
-                                        color: Colors.grey),
+                                        fontSize: 30, color: Colors.grey),
                                   ),
                                   Text(
                                     "${(snapshot.data!.list[0].main.temp - 273.15).round()}\u2103",
@@ -113,14 +112,11 @@ class _HomeState extends State<Home> {
                                   Text(
                                     "min:${(snapshot.data!.list[0].main.temp_min - 273.15).round()}\u2103 / max:${(snapshot.data!.list[0].main.temp_max - 273.15).round()}\u2103",
                                     style: const TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.grey),
+                                        fontSize: 15, color: Colors.grey),
                                   ),
-                                  const Divider(height: 60),
-                                  const Icon(
-                                    Icons.cloud,
-                                    size: 80,
-                                  ),
+                                  const Divider(height: 30),
+                                  Image.network(
+                                      "https://openweathermap.org/img/wn/${snapshot.data!.list[8].weather.first.icon}@2x.png"),
                                   Text(
                                     "wind ${snapshot.data!.list[1].wind.speed.toString()}",
                                     style: const TextStyle(
@@ -136,37 +132,55 @@ class _HomeState extends State<Home> {
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              const SizedBox(
+                                width: 20,
+                              ),
                               dayWeather(
                                 snapshot.data!.list[0].dt_txt.toString(),
-                                Icons.icecream_outlined,
+                                snapshot.data!.list[0].weather.first.icon,
                                 snapshot.data!.list[0].main.temp,
                                 snapshot.data!.list[0].weather[0].description,
                               ),
+                              const SizedBox(
+                                width: 20,
+                              ),
                               dayWeather(
                                 snapshot.data!.list[8].dt_txt.toString(),
-                                Icons.icecream_outlined,
+                                snapshot.data!.list[8].weather.first.icon,
                                 snapshot.data!.list[8].main.temp,
                                 snapshot.data!.list[8].weather[0].description,
                               ),
+                              const SizedBox(
+                                width: 20,
+                              ),
                               dayWeather(
                                 snapshot.data!.list[16].dt_txt.toString(),
-                                Icons.icecream_outlined,
+                                snapshot.data!.list[16].weather.first.icon,
                                 snapshot.data!.list[16].main.temp,
                                 snapshot.data!.list[16].weather[0].description,
                               ),
+                              const SizedBox(
+                                width: 20,
+                              ),
                               dayWeather(
                                 snapshot.data!.list[24].dt_txt.toString(),
-                                Icons.icecream_outlined,
+                                snapshot.data!.list[24].weather.first.icon,
                                 snapshot.data!.list[24].main.temp,
                                 snapshot.data!.list[24].weather[0].description,
                               ),
+                              const SizedBox(
+                                width: 20,
+                              ),
                               dayWeather(
                                 snapshot.data!.list[32].dt_txt.toString(),
-                                Icons.icecream_outlined,
+                                snapshot.data!.list[32].weather.first.icon,
                                 snapshot.data!.list[32].main.temp,
                                 snapshot.data!.list[32].weather[0].description,
+                              ),
+                              const SizedBox(
+                                width: 20,
                               ),
                             ],
                           ),
@@ -186,43 +200,48 @@ class _HomeState extends State<Home> {
   }
 }
 
-Widget dayWeather(String day, IconData dayicon, double degree, String status) {
-  return Container(
-    height: 150,
+Widget dayWeather(String day, String image, double degree, String status) {
+  return SizedBox(
+    height: 210,
     width: 150,
     child: Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            DateFormat('EEEE').format(DateTime.parse(day)),
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              DateFormat('EEEE').format(DateTime.parse(day)),
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
-          ),
-          Icon(dayicon),
-          Text(
-            "${(degree - 273.15).round()}\u2103",
-            style: const TextStyle(
-              fontSize: 20,
-              color: Colors.black,
+            SizedBox(
+                height: 80,
+                child: Image.network(
+                    "https://openweathermap.org/img/wn/$image@2x.png")),
+            Text(
+              "${(degree - 273.15).round()}\u2103",
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
             ),
-          ),
-          Text(
-            status,
-            style: const TextStyle(
-              fontSize: 20,
-              color: Colors.black,
+            Text(
+              status,
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   );
