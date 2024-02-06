@@ -43,6 +43,10 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.all(20.0),
                           child: TextFormField(
                             controller: city,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
                                 icon: const Icon(Icons.search,
@@ -59,18 +63,18 @@ class _HomeState extends State<Home> {
                                   fontWeight: FontWeight.bold),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide: const BorderSide(color: Colors.white),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(color: Colors.black),
+                                borderSide: const BorderSide(color: Colors.black),
                               ),
                             ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Container(
+                          child: SizedBox(
                             height: 460,
                             width: MediaQuery.of(context).size.width,
                             child: Card(
@@ -203,8 +207,9 @@ class _HomeState extends State<Home> {
 Widget dayWeather(String day, String image, double degree, String status) {
   return SizedBox(
     height: 210,
-    width: 150,
+    width: 180,
     child: Card(
+      color: Colors.grey[400],
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -212,7 +217,6 @@ Widget dayWeather(String day, String image, double degree, String status) {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               DateFormat('EEEE').format(DateTime.parse(day)),
